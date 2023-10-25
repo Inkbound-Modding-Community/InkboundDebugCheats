@@ -26,7 +26,7 @@ namespace InkboundDebugCheats {
         private bool pressed11 = false;
         private bool pressed12 = false;
         private bool pressed13 = false;
-        private ConfigEntry<KeyboardShortcut> addGold;
+        private ConfigEntry<KeyboardShortcut> addKwillings;
         private ConfigEntry<KeyboardShortcut> addGlyphs;
         private ConfigEntry<KeyboardShortcut> spawnVestige;
         private ConfigEntry<KeyboardShortcut> addStatus;
@@ -39,6 +39,8 @@ namespace InkboundDebugCheats {
         private ConfigEntry<KeyboardShortcut> augment;
         private ConfigEntry<KeyboardShortcut> ability;
         private ConfigEntry<KeyboardShortcut> godMode;
+        private ConfigEntry<int> kwillingsIncrement;
+        private ConfigEntry<int> glyphIncrement;
         private ConfigEntry<string> vestigeDataID;
         private ConfigEntry<string> statusDataID;
         private ConfigEntry<string> ascensionDataID;
@@ -46,8 +48,10 @@ namespace InkboundDebugCheats {
         private ConfigEntry<string> abilityID;
         private static ManualLogSource log;
         private void Awake() {
-            addGold = Config.Bind("Currency", "Add Gold Hotkey", new KeyboardShortcut(UnityEngine.KeyCode.F1, UnityEngine.KeyCode.LeftShift));
+            addKwillings = Config.Bind("Currency", "Add Kwillings Hotkey", new KeyboardShortcut(UnityEngine.KeyCode.F1, UnityEngine.KeyCode.LeftShift));
+            kwillingsIncrement = Config.Bind("Currency", "Kwillings Increment", 1000);
             addGlyphs = Config.Bind("Currency", "Add Glyphs Hotkey", new KeyboardShortcut(UnityEngine.KeyCode.F2, UnityEngine.KeyCode.LeftShift));
+            glyphIncrement = Config.Bind("Currency", "Glyphs Increment", 20);
             spawnVestige = Config.Bind("Vestiges", "Spawn Vestige Hotkey", new KeyboardShortcut(UnityEngine.KeyCode.F3, UnityEngine.KeyCode.LeftShift));
             vestigeDataID = Config.Bind("Vestiges", "DataID of Vestige which will be spawned", "yyxTLlM3");
             addStatus = Config.Bind("Status Effect", "Add Status Effect Hotkey", new KeyboardShortcut(UnityEngine.KeyCode.F4, UnityEngine.KeyCode.LeftShift));
@@ -72,13 +76,13 @@ namespace InkboundDebugCheats {
             try {
                 var aps = ClientApp.Inst._applicationState;
                 WorldCommand wc = null;
-                if (addGold.Value.IsDown() && !pressed1) {
+                if (addKwillings.Value.IsDown() && !pressed1) {
                     pressed1 = true;
-                    wc = new WorldCommandModifyInventoryCurrency(aps.GetNetworkRo().LocalEntityHandleInWorld, CurrencyType.Run, 10000);
+                    wc = new WorldCommandModifyInventoryCurrency(aps.GetNetworkRo().LocalEntityHandleInWorld, CurrencyType.Run, kwillingsIncrement.Value);
                 }
                 if (addGlyphs.Value.IsDown() && !pressed2) {
                     pressed2 = true;
-                    wc = new WorldCommandModifyInventoryCurrency(aps.GetNetworkRo().LocalEntityHandleInWorld, CurrencyType.Gold, 100);
+                    wc = new WorldCommandModifyInventoryCurrency(aps.GetNetworkRo().LocalEntityHandleInWorld, CurrencyType.Gold, glyphIncrement.Value);
                 }
                 if (spawnVestige.Value.IsDown() && !pressed3) {
                     pressed3 = true;
