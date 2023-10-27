@@ -12,7 +12,7 @@ namespace InkboundDebugCheats {
     public class DebugCheats : BaseUnityPlugin {
         public const string PLUGIN_GUID = "ADDB.DebugCheats";
         public const string PLUGIN_NAME = "Debug Cheats";
-        public const string PLUGIN_VERSION = "1.0.0";
+        public const string PLUGIN_VERSION = "1.0.1";
         private bool pressed1 = false;
         private bool pressed2 = false;
         private bool pressed3 = false;
@@ -75,78 +75,80 @@ namespace InkboundDebugCheats {
         private void Update() {
             try {
                 var aps = ClientApp.Inst._applicationState;
-                WorldCommand wc = null;
-                if (addKwillings.Value.IsDown() && !pressed1) {
-                    pressed1 = true;
-                    wc = new WorldCommandModifyInventoryCurrency(aps.GetNetworkRo().LocalEntityHandleInWorld, CurrencyType.Run, kwillingsIncrement.Value);
-                }
-                if (addGlyphs.Value.IsDown() && !pressed2) {
-                    pressed2 = true;
-                    wc = new WorldCommandModifyInventoryCurrency(aps.GetNetworkRo().LocalEntityHandleInWorld, CurrencyType.Gold, glyphIncrement.Value);
-                }
-                if (spawnVestige.Value.IsDown() && !pressed3) {
-                    pressed3 = true;
-                    wc = new WorldCommandCheatSpawnItem(aps.GetNetworkRo().LocalEntityHandleInWorld, vestigeDataID.Value);
-                }
-                if (addStatus.Value.IsDown() && !pressed4) {
-                    pressed4 = true;
-                    wc = new WorldCommandAddStatusEffect(aps.GetNetworkRo().LocalEntityHandleInWorld, aps.GetNetworkRo().LocalEntityHandleInWorld, 1, statusDataID.Value);
-                }
-                if (winFight.Value.IsDown() && !pressed5) {
-                    pressed5 = true;
-                    wc = new WorldCommandCheatWinBattle();
-                }
-                if (winBook.Value.IsDown() && !pressed6) {
-                    pressed6 = true;
-                    wc = new WorldCommandCheatWinBook();
-                }
-                if (winRun.Value.IsDown() && !pressed7) {
-                    pressed7 = true;
-                    wc = new WorldCommandCheatWinRun();
-                }
-                if (skipToVillain.Value.IsDown() && !pressed8) {
-                    pressed8 = true;
-                    wc = new WorldCommandCheatAdvanceToVillain();
-                }
-                if (cooldowns.Value.IsDown() && !pressed9) {
-                    pressed9 = true;
-                    wc = new WorldCommandCheatClearCooldowns(aps.GetNetworkRo().LocalEntityHandleInWorld);
-                }
-                if (ascension.Value.IsDown() && !pressed10) {
-                    pressed10 = true;
-                    wc = new WorldCommandCheatApplyAbilityAscension() {
-                        playerUnitHandle = aps.GetNetworkRo().LocalEntityHandleInWorld,
-                        abilityAscensionGuid = ascensionDataID.Value
-                    };
-                }
-                if (augment.Value.IsDown() && !pressed11) {
-                    pressed11 = true;
-                    wc = new WorldCommandCheatApplyAbilityUpgrade(aps.GetNetworkRo().LocalEntityHandleInWorld, augmentDataID.Value);
-                }
-                if (ability.Value.IsDown() && !pressed12) {
-                    pressed12 = true;
-                    wc = new WorldCommandCheatDraftAbility(aps.GetNetworkRo().LocalEntityHandleInWorld, abilityID.Value);
-                }
-                if (godMode.Value.IsDown() && !pressed13) {
-                    pressed13 = true;
-                    wc = new WorldCommandCheatGodMode(aps.GetNetworkRo().LocalEntityHandleInWorld, true, false);
-                }
-                if (wc != null) {
-                    aps.WorldClient.BufferWorldCommand(wc);
-                } else {
-                    pressed1 = false;
-                    pressed2 = false;
-                    pressed3 = false;
-                    pressed4 = false;
-                    pressed5 = false;
-                    pressed6 = false;
-                    pressed7 = false;
-                    pressed8 = false;
-                    pressed9 = false;
-                    pressed10 = false;
-                    pressed11 = false;
-                    pressed12 = false;
-                    pressed13 = false;
+                if (aps != null) {
+                    WorldCommand wc = null;
+                    if (addKwillings.Value.IsDown() && !pressed1) {
+                        pressed1 = true;
+                        wc = new WorldCommandModifyInventoryCurrency(aps.GetNetworkRo().LocalEntityHandleInWorld, CurrencyType.Run, kwillingsIncrement.Value);
+                    }
+                    if (addGlyphs.Value.IsDown() && !pressed2) {
+                        pressed2 = true;
+                        wc = new WorldCommandModifyInventoryCurrency(aps.GetNetworkRo().LocalEntityHandleInWorld, CurrencyType.Gold, glyphIncrement.Value);
+                    }
+                    if (spawnVestige.Value.IsDown() && !pressed3) {
+                        pressed3 = true;
+                        wc = new WorldCommandCheatSpawnItem(aps.GetNetworkRo().LocalEntityHandleInWorld, vestigeDataID.Value);
+                    }
+                    if (addStatus.Value.IsDown() && !pressed4) {
+                        pressed4 = true;
+                        wc = new WorldCommandAddStatusEffect(aps.GetNetworkRo().LocalEntityHandleInWorld, aps.GetNetworkRo().LocalEntityHandleInWorld, 1, statusDataID.Value);
+                    }
+                    if (winFight.Value.IsDown() && !pressed5) {
+                        pressed5 = true;
+                        wc = new WorldCommandCheatWinBattle();
+                    }
+                    if (winBook.Value.IsDown() && !pressed6) {
+                        pressed6 = true;
+                        wc = new WorldCommandCheatWinBook();
+                    }
+                    if (winRun.Value.IsDown() && !pressed7) {
+                        pressed7 = true;
+                        wc = new WorldCommandCheatWinRun();
+                    }
+                    if (skipToVillain.Value.IsDown() && !pressed8) {
+                        pressed8 = true;
+                        wc = new WorldCommandCheatAdvanceToVillain();
+                    }
+                    if (cooldowns.Value.IsDown() && !pressed9) {
+                        pressed9 = true;
+                        wc = new WorldCommandCheatClearCooldowns(aps.GetNetworkRo().LocalEntityHandleInWorld);
+                    }
+                    if (ascension.Value.IsDown() && !pressed10) {
+                        pressed10 = true;
+                        wc = new WorldCommandCheatApplyAbilityAscension() {
+                            playerUnitHandle = aps.GetNetworkRo().LocalEntityHandleInWorld,
+                            abilityAscensionGuid = ascensionDataID.Value
+                        };
+                    }
+                    if (augment.Value.IsDown() && !pressed11) {
+                        pressed11 = true;
+                        wc = new WorldCommandCheatApplyAbilityUpgrade(aps.GetNetworkRo().LocalEntityHandleInWorld, augmentDataID.Value);
+                    }
+                    if (ability.Value.IsDown() && !pressed12) {
+                        pressed12 = true;
+                        wc = new WorldCommandCheatDraftAbility(aps.GetNetworkRo().LocalEntityHandleInWorld, abilityID.Value);
+                    }
+                    if (godMode.Value.IsDown() && !pressed13) {
+                        pressed13 = true;
+                        wc = new WorldCommandCheatGodMode(aps.GetNetworkRo().LocalEntityHandleInWorld, true, false);
+                    }
+                    if (wc != null) {
+                        aps.WorldClient.BufferWorldCommand(wc);
+                    } else {
+                        pressed1 = false;
+                        pressed2 = false;
+                        pressed3 = false;
+                        pressed4 = false;
+                        pressed5 = false;
+                        pressed6 = false;
+                        pressed7 = false;
+                        pressed8 = false;
+                        pressed9 = false;
+                        pressed10 = false;
+                        pressed11 = false;
+                        pressed12 = false;
+                        pressed13 = false;
+                    }
                 }
             } catch (Exception ex) {
                 log.LogError(ex);
