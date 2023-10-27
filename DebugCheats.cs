@@ -74,7 +74,7 @@ namespace InkboundDebugCheats {
         }
         private void Update() {
             try {
-                var aps = ClientApp.Inst._applicationState;
+                var aps = ClientApp.Inst?._applicationState;
                 if (aps != null) {
                     WorldCommand wc = null;
                     if (addKwillings.Value.IsDown() && !pressed1) {
